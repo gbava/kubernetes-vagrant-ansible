@@ -1,14 +1,14 @@
 ---
 - name: Setup guest vms
   hosts: kube-cluster
-  gather_facts: yes
+  gather_facts: no
   become: yes
   roles:
     - { role: pre-setup, tags: vms }
 
 - name: Install kubernetes and docker on the master node
   hosts: master
-  gather_facts: yes
+  gather_facts: no
   become: yes
   roles:
     - { role: install-kubernetes/docker, tags: docker }
@@ -16,14 +16,14 @@
 
 - name: Setup kubernetes networking
   hosts: master
-  gather_facts: yes
+  gather_facts: no
   become: yes
   roles:
     - { role: install-kubernetes/cni, tags: cni }
 
 - name: Install kubernetes and docker on the nodes
   hosts: nodes
-  gather_facts: yes
+  gather_facts: no
   become: yes
   roles:
     - { role: install-kubernetes/docker, tags: docker }
@@ -31,13 +31,13 @@
 
 - name: Deploy nginx ingress for load balancing
   hosts: master
-  gather_facts: yes
+  gather_facts: no
   roles:
     - { role: ingress-nginx, tags: ingress-nginx }
 
 - name: Build spring boot hateoas app and create Docker image
   hosts: master
-  gather_facts: yes
+  gather_facts: no
   roles:
     - { role: build-app/install-maven, tags: maven }
     - { role: build-app/build, tags: app }
@@ -45,6 +45,6 @@
 
 - name: Deploy spring boot hateoas Docker image on Kubernetes
   hosts: master
-  gather_facts: yes
+  gather_facts: no
   roles:
     - { role: deploy-app, tags: app }
