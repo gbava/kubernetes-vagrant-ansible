@@ -23,7 +23,7 @@ El provisioner es el playbook de Ansible ‘site.yml’
 Por ello es que el último paso es ejecutar el playbook:
 
 
-    ansible-playbook install_kubernetes.yml
+    ansible-playbook site.yml
 
 # Variables
 En `servers.yaml` se definen las variables para las vms de Vagrant.
