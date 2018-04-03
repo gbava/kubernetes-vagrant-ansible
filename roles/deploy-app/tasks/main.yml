@@ -1,15 +1,15 @@
 ---
 - name: Create directory for the app files
-  file: path={{ kubernetes_dir }}/app state=directory
+  file: path={{ deployment_dir }}/app state=directory
 
 - name: Copy app-deployment.yaml file
-  template: src=app-deployment.yaml.j2  dest={{ kubernetes_dir }}/app/app-deployment.yaml
+  template: src=app-deployment.yaml.j2  dest={{ deployment_dir }}/app/app-deployment.yaml
 
 - name: Copy app-service.yaml file
-  template: src=app-service.yaml.j2  dest={{ kubernetes_dir }}/app/app-service.yaml
+  template: src=app-service.yaml.j2  dest={{ deployment_dir }}/app/app-service.yaml
 
 - name: Apply config files for deploying our app
   shell: kubectl apply -f {{ item }}
   with_items:
-    - "{{ kubernetes_dir }}/app/app-deployment.yaml"
-    - "{{ kubernetes_dir }}/app/app-service.yaml"
+    - "{{ deployment_dir }}/app/app-deployment.yaml"
+    - "{{ deployment_dir }}/app/app-service.yaml"

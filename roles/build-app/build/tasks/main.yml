@@ -2,12 +2,12 @@
 
 - name: Create directory for the app sources
   file:
-    path: "{{ kubernetes_dir }}/src"
+    path: "{{ deployment_dir }}/src"
     state: directory
 
 - name: Create build directory
   file:
-    path: "{{ kubernetes_dir }}/build"
+    path: "{{ deployment_dir }}/build"
     state: directory
 
 - name: Install build tools
@@ -20,7 +20,7 @@
 - name: Clone Spring Boot repository
   git:
     repo: https://github.com/spring-projects/spring-boot.git
-    dest: "{{ kubernetes_dir }}/src/spring-boot"
+    dest: "{{ deployment_dir }}/src/spring-boot"
 
 - name: Source
   shell: source /etc/profile.d/maven_home.sh
@@ -28,11 +28,11 @@
 - name: Build jar file with Maven
   shell: mvn package
   args:
-    chdir: "{{ kubernetes_dir }}/src/spring-boot/spring-boot-samples/spring-boot-sample-hateoas"
+    chdir: "{{ app_src_dir }}"
 
 # fixme: app version to variable
 - name: copy jar file to build dir
   synchronize:
-    src: "{{ kubernetes_dir }}/src/spring-boot/spring-boot-samples/spring-boot-sample-hateoas/target/spring-boot-sample-hateoas-2.0.1.BUILD-SNAPSHOT.jar"
-    dest: "{{ kubernetes_dir }}/build/"
+    src: "{{ app_src_dir }}/target/spring-boot-sample-hateoas-2.0.1.BUILD-SNAPSHOT.jar"
+    dest: "{{ deployment_dir }}/build/"
   delegate_to: "{{ groups['master'][0] }}"
