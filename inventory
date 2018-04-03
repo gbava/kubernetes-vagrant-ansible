@@ -1,0 +1,48 @@
+[master]
+centos-master ansible_ssh_private_key_file=.vagrant/machines/centos-master/libvirt/private_key ansible_user=vagrant
+
+[nodes]
+centos-node1 ansible_ssh_private_key_file=.vagrant/machines/centos-node1/libvirt/private_key ansible_user=vagrant
+centos-node2 ansible_ssh_private_key_file=.vagrant/machines/centos-node2/libvirt/private_key ansible_user=vagrant
+
+[kube-cluster:children]
+master
+nodes
+
+[all:vars]
+
+# Kubernetes
+kube_version=v1.10.0
+token=b0f7b8.8d1767876297d856
+init_opts="--apiserver-advertise-address 10.10.0.10"
+kubeadm_opts=""
+
+service_subnet=10.96.0
+service_cidr={{ service_subnet }}.0/12
+dns_name=cluster.local
+dns_ip="{{ service_subnet }}.10"
+
+# Network implementation
+network=flannel
+pod_network_cidr=10.244.0.0/16
+cni_opts="interface=eth1"
+
+# A list of insecure registrys you might need to define
+insecure_registrys=""
+
+systemd_dir=/lib/systemd/system
+system_env_dir=/etc/sysconfig
+network_dir=/etc/kubernetes/network
+kubeadmin_config=/etc/kubernetes/admin.conf
+
+fqdn=mydomain.com
+name=spring-boot-app
+kubernetes_dir="/home/vagrant/kubernetes"
+
+# Docker
+docker_version=17.03
+
+# Maven
+maven_version=3.5.2
+maven_destination_directory=/opt
+maven_bin_url=http://apache.mirrors.spacedump.net/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz

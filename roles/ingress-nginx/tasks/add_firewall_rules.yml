@@ -1,0 +1,6 @@
+- name: Add this rule on the worker nodes to be able to see ports opened by nodePort
+  iptables:
+    chain: FORWARD
+    jump: ACCEPT
+  become: yes
+  when: "'nodes' in group_names"

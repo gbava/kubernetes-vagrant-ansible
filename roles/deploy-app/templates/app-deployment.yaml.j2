@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ name }}
+  namespace: default
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: {{ name }}
+    spec:
+      containers:
+      - name: {{ name }}
+        image: gbava/spring-boot-sample-hateoas:v1
+        env:
+        - name: AUTHOR
+          value: {{ name }}
+        ports:
+        - containerPort: 8080

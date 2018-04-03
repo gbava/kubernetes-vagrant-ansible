@@ -1,0 +1,7 @@
+---
+
+maven_version: 3.5.2
+
+maven_destination_directory: /opt
+
+maven_bin_url: http://apache.mirrors.spacedump.net/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz

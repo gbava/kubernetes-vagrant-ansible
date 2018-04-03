@@ -1,0 +1,20 @@
+- name: Enable privileged port range for nodePort
+  lineinfile:
+    path: /etc/kubernetes/manifests/kube-apiserver.yaml
+    insertafter: '- kube-apiserver'
+    line: '    - --service-node-port-range=80-32767'
+  become: yes
+  register: reboot server
+
+- name: reboot the server
+  shell: sleep 2 && shutdown -r now
+  async: 1
+  poll: 0
+
+- name: Wait for server come back
+  wait_for: >
+      host={{ inventory_hostname }}
+      port=22
+      delay=15
+      timeout=60
+  delegate_to: localhost

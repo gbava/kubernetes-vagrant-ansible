@@ -1,0 +1,32 @@
+---
+- name: create docker group
+  group: name=docker
+  state: present
+  become: yes
+
+
+- name: add user to docker group
+  user: name=vagrant groups=docker append=yes
+  become: yes
+
+- name: check that Docker is running
+  service: name=docker state=started
+  become: yes
+
+- name: Copy Dockerfile template
+  template: src=Dockerfile.j2 dest={{ kubernetes_dir }}/build/Dockerfile
+
+#  fixme Build image
+#- name: Build docker image
+#  shell: docker image build --tag gbava/spring-boot-sample-hateoas:v1 "{{ kubernetes_dir }}/build"
+#  args:
+#    chdir: "{{ kubernetes_dir }}/src/spring-boot/spring-boot-samples/spring-boot-sample-hateoas"
+
+#  fixme Push image to somewhere
+#- name: Build an image and push it to a private repo
+#  docker_image:
+#    path: "{{ kubernetes_dir }}/build"
+#    dockerfile: "{{ kubernetes_dir }}/build/Dockerfile"
+#    name: registry.ansible.com/gbava/spring-boot-sample-hateoas
+#    tag: v1
+#    push: yes

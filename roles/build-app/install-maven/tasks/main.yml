@@ -1,0 +1,35 @@
+---
+
+- name: Create destination directory
+  file:
+    path: "{{ maven_destination_directory }}"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+  become: true
+
+- name: Download and untar the maven binary file
+  unarchive:
+    src: "{{ maven_bin_url }}"
+    dest: "{{ maven_destination_directory }}"
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  become: true
+
+- name: Set M2_HOME
+  template:
+    src: maven_home.sh.j2
+    dest: /etc/profile.d/maven_home.sh
+  become: true
+
+- name: Create a symlink to mvn
+  file:
+    src: "{{ maven_destination_directory }}/apache-maven-{{ maven_version }}/bin/mvn"
+    dest: /usr/local/bin/mvn
+    owner: root
+    group: root
+    state: link
+  become: true

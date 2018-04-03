@@ -1,0 +1,13 @@
+---
+
+- name: Create secrets
+  include_tasks: setup_secrets.yml
+
+- name: Add firewall rules
+  include_tasks: add_firewall_rules.yml
+
+- name: Enable the use of privileged ports by nodePort
+  include_tasks: enable_privileged_ports.yml
+
+- name: Setup nginx ingress
+  include_tasks: setup_nginx_ingress.yml

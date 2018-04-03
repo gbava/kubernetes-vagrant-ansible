@@ -1,0 +1,5 @@
+- name: Setup the guest vms
+  include_tasks: setup_guest_vms.yml
+
+- name: Install utilities
+  include_tasks: install_utils.yml

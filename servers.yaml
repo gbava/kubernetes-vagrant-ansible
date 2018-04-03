@@ -1,0 +1,13 @@
+---
+- name: centos-master
+  box: centos/7
+  ram: 2048
+  ip: 10.10.0.10
+- name: centos-node1
+  box: centos/7
+  ram: 512
+  ip: 10.10.0.11
+- name: centos-node2
+  box: centos/7
+  ram: 512
+  ip: 10.10.0.12

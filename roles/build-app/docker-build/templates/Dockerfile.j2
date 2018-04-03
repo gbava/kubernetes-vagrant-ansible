@@ -1,0 +1,8 @@
+FROM openjdk:8
+MAINTAINER gaston.bava@email.cz
+VOLUME /tmp
+COPY spring-boot-sample-hateoas-2.0.1.BUILD-SNAPSHOT.jar /tmp
+ARG JAR_FILE
+ADD ${JAR_FILE} spring-boot-sample-hateoas-2.0.1.BUILD-SNAPSHOT.jar
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/tmp/spring-boot-sample-hateoas-2.0.1.BUILD-SNAPSHOT.jar"]
+EXPOSE 8080
