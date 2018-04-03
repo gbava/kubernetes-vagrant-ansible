@@ -1,8 +1,0 @@
-- name: (REMOVE) Install system/network utilities packages
-  yum: name={{ item }} state=installed
-  with_items:
-  - net-tools
-  - nmap
-  - tcpdump
-  - wget
-  - vim

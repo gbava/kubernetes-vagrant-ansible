@@ -1,4 +1,8 @@
 ---
+# Fixme check for condition
+- name: Wait until cluster is built
+  wait_for: timeout=90
+  delegate_to: localhost
 
 - name: Create directory for Kubernetes yaml files
   file:

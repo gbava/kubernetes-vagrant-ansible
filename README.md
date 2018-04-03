@@ -17,7 +17,7 @@ luego indicar que Vagrant utilice libvirt:
 
 y ahora desplegamos las vms con `vagrant up`
 
-El provisioner es el playbook de Ansible ‘install_kubernetes.yml’
+El provisioner es el playbook de Ansible ‘site.yml’
 
 (Como en mi entorno Vagrant no se ejecutaba correctamente la sección "provision" mediante ansible tuve que quitarla)
 Por ello es que el último paso es ejecutar el playbook:

@@ -1,9 +1,9 @@
 [master]
-centos-master ansible_ssh_private_key_file=.vagrant/machines/centos-master/libvirt/private_key ansible_user=vagrant
+centos-master ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_user=vagrant
 
 [nodes]
-centos-node1 ansible_ssh_private_key_file=.vagrant/machines/centos-node1/libvirt/private_key ansible_user=vagrant
-centos-node2 ansible_ssh_private_key_file=.vagrant/machines/centos-node2/libvirt/private_key ansible_user=vagrant
+centos-node1 ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_user=vagrant
+centos-node2 ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_user=vagrant
 
 [kube-cluster:children]
 master

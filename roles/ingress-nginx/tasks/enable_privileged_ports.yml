@@ -7,9 +7,10 @@
   register: reboot server
 
 - name: reboot the server
-  shell: sleep 2 && shutdown -r now
+  shell: sleep 2 && /sbin/shutdown -r now
   async: 1
   poll: 0
+  become: yes
 
 - name: Wait for server come back
   wait_for: >
