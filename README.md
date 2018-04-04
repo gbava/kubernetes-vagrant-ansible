@@ -27,7 +27,7 @@ Por ello es que el último paso es ejecutar el playbook:
 
 # Variables
 En `servers.yaml` se definen las variables para las vms de Vagrant.
-El resto de las variables está definido en el fichero `inventory`
+El resto de las variables está definido en el fichero `group_vars/all.yml`
 
 
 # Roles del playbook
@@ -50,13 +50,13 @@ Instala la imagen y crea un contenedor con la aplicacion en el cluster kubernete
 Para poder acceder es necesario editar /etc/hosts y agregar el siguiente registro:
 
 ```
-10.10.0.10  spring-boot-app.mydomain.com
+10.10.0.10  spring-boot-app.cluster.local
 ```
 
 
-La aplicacion puede accederse en el puerto tcp 443: https://spring-boot-app.mydomain.com
+La aplicacion puede accederse en el puerto tcp 443: https://spring-boot-app.cluster.local
 
-Podemosm probar por ej: 
+Podemos probar por ej: 
 ```
-curl -v https://spring-boot-app.mydomain.com/customers/1 -k
+curl -v https://spring-boot-app.cluster.local/customers/1 -k
 ```
