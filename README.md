@@ -10,16 +10,20 @@ Conjunto de scripts para el despliegue de un cluster kubernetes con los siguient
 
 # Instalacion:
 
-Primero instalar el siguiente plugin en Vagrant: `vagrant plugin install vagrant-libvirt` 
+Para poder utilizar libvirt como provider en Vagrant necesitamos el plugin *vagrant-libvirt*
+  
+Para instalarlo primero instalar las dependencias necesarias según tu distro siguiendo estas [indicaciones](https://github.com/vagrant-libvirt/vagrant-libvirt#installation) 
 
-luego indicar que Vagrant utilice libvirt: 
+Posteriormente instalar el plugin en Vagrant: `vagrant plugin install vagrant-libvirt` 
+
+Por último indicar que Vagrant utilice libvirt: 
 `export VAGRANT_DEFAULT_PROVIDER=libvirt`
 
 y ahora desplegamos las vms con `vagrant up`
 
-El provisioner es el playbook de Ansible ‘site.yml’
+El provisioner es el playbook de Ansible *site.yml*
 
-(Como en mi entorno Vagrant no se ejecutaba correctamente la sección "provision" mediante ansible tuve que quitarla)
+(Como en mi entorno no se ejecutaba correctamente el playbook desde Vagrant tuve que quitar esa referencia)
 Por ello es que el último paso es ejecutar el playbook:
 
 
