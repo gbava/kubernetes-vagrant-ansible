@@ -1,3 +1,15 @@
+# App
+fqdn: cluster.local
+deployment_dir: "{{ ansible_env.HOME }}/deployment"
+app_name: spring-boot-sample-hateoas
+app_version_number: 1
+app_maintainer: gbava
+app_maintainer_email: gaston.bava@email.cz
+app_src_dir: "{{ deployment_dir }}/src/spring-boot/spring-boot-samples/spring-boot-sample-hateoas"
+app_homedir: /tmp
+app_port: 8080
+app_log_volume: "/var/log/{{ app_name }}"
+
 # Kubernetes
 kube_version: v1.10.0
 token: b0f7b8.8d1767876297d856
@@ -9,22 +21,15 @@ service_cidr: "{{ service_subnet }}.0/12"
 dns_name: cluster.local
 dns_ip: "{{ service_subnet }}.10"
 
-# Network implementation
+# Kubernetes Network
 network: flannel
 pod_network_cidr: 10.244.0.0/16
 cni_opts: "interface: eth1"
-
-# A list of insecure registrys you might need to define
-insecure_registrys: ""
 
 systemd_dir: /lib/systemd/system
 system_env_dir: /etc/sysconfig
 network_dir: /etc/kubernetes/network
 kubeadmin_config: /etc/kubernetes/admin.conf
-
-fqdn: cluster.local
-name: spring-boot-app
-deployment_dir: "/home/vagrant/kubernetes"
 
 # Docker
 docker_version: 17.03
@@ -33,5 +38,3 @@ docker_version: 17.03
 maven_version: 3.5.2
 maven_destination_directory: /opt
 maven_bin_url: http://apache.mirrors.spacedump.net/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz
-
-app_src_dir: "{{ deployment_dir }}/src/spring-boot/spring-boot-samples/spring-boot-sample-hateoas"

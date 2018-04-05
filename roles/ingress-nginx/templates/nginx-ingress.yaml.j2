@@ -2,18 +2,18 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ name }}
+  name: {{ app_name }}
   namespace: default
 spec:
   tls:
     - hosts:
-      - {{ name }}.{{ fqdn }}
+      - {{ app_name }}.{{ fqdn }}
       secretName: tls-certificate
   rules:
-  - host: {{ name }}.{{ fqdn }}
+  - host: {{ app_name }}.{{ fqdn }}
     http:
       paths:
       - path: /
         backend:
-          serviceName: {{ name }}
+          serviceName: {{ app_name }}
           servicePort: 8080

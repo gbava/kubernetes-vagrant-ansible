@@ -4,6 +4,11 @@
   state: present
   become: yes
 
+- name: Ensure docker-python package is present
+  package:
+      name: python-docker-py
+      state: installed
+  become: yes
 
 - name: add user to docker group
   user: name=vagrant groups=docker append=yes
@@ -16,11 +21,20 @@
 - name: Copy Dockerfile template
   template: src=Dockerfile.j2 dest={{ deployment_dir }}/build/Dockerfile
 
-#  fixme Build image
 #- name: Build docker image
-#  shell: docker image build --tag gbava/spring-boot-sample-hateoas:v1 "{{ deployment_dir }}/build"
+#  shell: "docker image build --tag {{ app_maintainer }}/{{ app_name }}:v{{ app_version_number }} {{ deployment_dir }}/build"
 #  args:
-#    chdir: "{{ deployment_dir }}/src/spring-boot/spring-boot-samples/spring-boot-sample-hateoas"
+#    chdir: "{{ deployment_dir }}/build"
+
+- name: Build Docker image
+  docker_image:
+     path: "{{ deployment_dir }}/build"
+     name: "{{ app_maintainer }}/{{ app_name }}"
+     tag: "v{{ app_version_number }}"
+     buildargs:
+       log_volume: "{{ app_log_volume }}"
+       listen_port: "{{ app_port }}"
+  become: yes
 
 #  fixme Push image to somewhere
 #- name: Build an image and push it to a private repo

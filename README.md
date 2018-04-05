@@ -54,13 +54,13 @@ Instala la imagen y crea un contenedor con la aplicacion en el cluster kubernete
 Para poder acceder es necesario editar /etc/hosts y agregar el siguiente registro:
 
 ```
-10.10.0.10  spring-boot-app.cluster.local
+10.10.0.10  spring-boot-sample-hateoas.cluster.local
 ```
 
 
-La aplicacion puede accederse en el puerto tcp 443: https://spring-boot-app.cluster.local
+La aplicacion puede accederse en el puerto tcp 443: https://spring-boot-sample-hateoas.cluster.local
 
 Podemos probar por ej: 
 ```
-curl -v https://spring-boot-app.cluster.local/customers/1 -k
+curl -v https://spring-boot-sample-hateoas.cluster.local/customers/1 -k
 ```
