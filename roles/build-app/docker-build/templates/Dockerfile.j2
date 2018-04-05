@@ -1,8 +1,8 @@
 FROM openjdk:8
-MAINTAINER gaston.bava@email.cz
+MAINTAINER {{ app_maintainer_email }}
 VOLUME /tmp
-COPY spring-boot-sample-hateoas-2.0.1.BUILD-SNAPSHOT.jar /tmp
+COPY {{ app_name }}.jar {{ app_homedir }}
 ARG JAR_FILE
-ADD ${JAR_FILE} spring-boot-sample-hateoas-2.0.1.BUILD-SNAPSHOT.jar
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/tmp/spring-boot-sample-hateoas-2.0.1.BUILD-SNAPSHOT.jar"]
-EXPOSE 8080
+ADD ${JAR_FILE} {{ app_name }}.jar
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","{{ app_homedir }}/{{ app_name }}.jar"]
+EXPOSE {{ app_port }}
