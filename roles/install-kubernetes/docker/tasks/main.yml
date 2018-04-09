@@ -1,6 +1,6 @@
 ---
 
-- name: Install Docker container engine
+- name: Install Docker container engine packages
   include_tasks: pkg.yml
 
 - name: Enable and start Docker engine
@@ -10,3 +10,10 @@
     state: restarted
     enabled: yes
   register: started_docker
+
+- name: Ensure docker group is present
+  group: name=docker
+  state: present
+
+- name: Add user to docker group
+  user: name="{{ ansible_user }}" groups=docker append=yes
