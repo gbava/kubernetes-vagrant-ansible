@@ -1,16 +1,23 @@
 ---
 
-- name: Add Docker yum repository
+- name: Add Docker CE yum repository
   yum_repository:
     name: Docker
-    description: Docker Repository
-    file: docker
-    baseurl: https://yum.dockerproject.org/repo/main/centos/7/
+    description: Docker CE Repository
+    baseurl: https://download.docker.com/linux/centos/7/$basearch/stable
     enabled: yes
     gpgcheck: yes
-    gpgkey: https://yum.dockerproject.org/gpg
+    gpgkey: https://download.docker.com/linux/centos/gpg
+  become: yes
 
 - name: Install docker engine
   yum:
-    name: "docker-engine-{{ docker_version }}.*"
+    name: docker-ce
     state: present
+  become: yes
+
+- name: Install API client for docker
+  package:
+      name: docker-python
+      state: installed
+  become: yes

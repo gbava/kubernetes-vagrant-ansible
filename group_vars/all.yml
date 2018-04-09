@@ -31,9 +31,6 @@ system_env_dir: /etc/sysconfig
 network_dir: /etc/kubernetes/network
 kubeadmin_config: /etc/kubernetes/admin.conf
 
-# Docker
-docker_version: 17.03
-
 # Maven
 maven_version: 3.5.2
 maven_destination_directory: /opt
