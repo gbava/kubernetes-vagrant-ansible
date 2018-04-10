@@ -2,12 +2,13 @@
 fqdn: cluster.local
 deployment_dir: "{{ ansible_env.HOME }}/deployment"
 app_name: spring-boot-sample-hateoas
-app_version_number: 1
+app_tag: v1
 app_maintainer: gbava
 app_maintainer_email: gaston.bava@email.cz
 app_src_dir: "{{ deployment_dir }}/src/spring-boot/spring-boot-samples/spring-boot-sample-hateoas"
 app_homedir: /tmp
 app_port: 8080
+app_service_port: 9000
 app_log_volume: "/var/log/{{ app_name }}"
 
 # Kubernetes

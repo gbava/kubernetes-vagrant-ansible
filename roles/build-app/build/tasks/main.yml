@@ -1,5 +1,8 @@
 ---
 
+- name: Install build tools
+  include_tasks: pkg.yml
+
 - name: Create directory for the app sources
   file:
     path: "{{ deployment_dir }}/src"
@@ -10,17 +13,12 @@
     path: "{{ deployment_dir }}/build"
     state: directory
 
-- name: Install build tools
-  yum: name={{ item }} state=installed
-  become: yes
-  with_items:
-  - git
-  - java-1.8.0-openjdk-devel
-
 - name: Clone Spring Boot repository
   git:
     repo: https://github.com/spring-projects/spring-boot.git
     dest: "{{ deployment_dir }}/src/spring-boot"
+    version: master
+    update: yes
 
 - name: Source
   shell: source /etc/profile.d/maven_home.sh

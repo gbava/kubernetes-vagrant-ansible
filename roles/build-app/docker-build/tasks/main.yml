@@ -1,46 +1,27 @@
 ---
-- name: create docker group
-  group: name=docker
-  state: present
-  become: yes
-
-- name: Ensure docker-python package is present
-  package:
-      name: python-docker-py
-      state: installed
-  become: yes
-
-- name: add user to docker group
-  user: name=vagrant groups=docker append=yes
-  become: yes
 
 - name: check that Docker is running
   service: name=docker state=started
   become: yes
 
+- name: Log into DockerHub
+  docker_login:
+    username: "{{ app_maintainer }}"
+    password: diScepol0
+    email: "{{ app_maintainer_email }}"
+
 - name: Copy Dockerfile template
   template: src=Dockerfile.j2 dest={{ deployment_dir }}/build/Dockerfile
 
-#- name: Build docker image
-#  shell: "docker image build --tag {{ app_maintainer }}/{{ app_name }}:v{{ app_version_number }} {{ deployment_dir }}/build"
-#  args:
-#    chdir: "{{ deployment_dir }}/build"
-
-- name: Build Docker image
+- name: Build and push docker image to Docker Hub
   docker_image:
      path: "{{ deployment_dir }}/build"
      name: "{{ app_maintainer }}/{{ app_name }}"
-     tag: "v{{ app_version_number }}"
+     tag: "{{ app_tag }}"
+     repository: "{{ app_maintainer }}/{{ app_name }}:{{ app_tag }}"
      buildargs:
        log_volume: "{{ app_log_volume }}"
        listen_port: "{{ app_port }}"
-  become: yes
-
-#  fixme Push image to somewhere
-#- name: Build an image and push it to a private repo
-#  docker_image:
-#    path: "{{ deployment_dir }}/build"
-#    dockerfile: "{{ deployment_dir }}/build/Dockerfile"
-#    name: registry.ansible.com/gbava/spring-boot-sample-hateoas
-#    tag: v1
-#    push: yes
+     push: yes
+     force: yes
+     state: present
