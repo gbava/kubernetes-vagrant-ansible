@@ -5,8 +5,8 @@ metadata:
   namespace: default
 spec:
   ports:
-  - port: 9000
+  - port: {{ app_service_port }}
     protocol: TCP
-    targetPort: 8080
+    targetPort: {{ app_port }}
   selector:
     app: {{ app_name }}

@@ -1,0 +1,8 @@
+---
+
+- name: Install build tools
+  yum: name={{ item }} state=installed
+  become: yes
+  with_items:
+  - git
+  - java-1.8.0-openjdk-devel

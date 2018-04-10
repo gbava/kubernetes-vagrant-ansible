@@ -12,9 +12,9 @@ spec:
     spec:
       containers:
       - name: {{ app_name }}
-        image: gbava/spring-boot-sample-hateoas:v1
+        image: {{ app_maintainer }}/{{ app_name }}:{{ app_tag }}
         env:
         - name: AUTHOR
-          value: {{ app_name }}
+          value: {{ app_maintainer_email }}
         ports:
-        - containerPort: 8080
+        - containerPort: {{ app_port }}

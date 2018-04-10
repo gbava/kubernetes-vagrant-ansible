@@ -45,6 +45,6 @@
 
 - name: Deploy spring boot hateoas Docker image on Kubernetes
   hosts: master
-  gather_facts: no
+  gather_facts: yes
   roles:
     - { role: deploy-app, tags: app }
